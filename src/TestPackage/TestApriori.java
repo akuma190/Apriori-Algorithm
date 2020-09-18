@@ -2,6 +2,7 @@ package TestPackage;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -25,21 +26,34 @@ public class TestApriori {
 		HashSet<String> uniqueFeatures = new HashSet<String>();
 
 		// reading the database1 and getting the unique elements
+		System.out.println("------------------Reading DataBase1---------");
 		readDataBases(dataBase1, dataBases[0]);
 		getUniqueElements(dataBase1, uniqueFeatures);
 		generateAssociation(dataBase1, uniqueFeatures, support, confidence);
 
 		// reading the database2 and getting the unique elements
-		readDataBases(dataBase2, dataBases[1]);
+		//System.out.println("------------------Reading DataBase2---------");
+//		readDataBases(dataBase2, dataBases[1]);
+//		getUniqueElements(dataBase1, uniqueFeatures);
+//		generateAssociation(dataBase1, uniqueFeatures, support, confidence);
 
 		// reading the database2 and getting the unique elements
-		readDataBases(dataBase3, dataBases[2]);
+		//System.out.println("------------------Reading DataBase3---------");
+//		readDataBases(dataBase3, dataBases[2]);
+//		getUniqueElements(dataBase1, uniqueFeatures);
+//		generateAssociation(dataBase1, uniqueFeatures, support, confidence);
 
 		// reading the database4 and getting the unique elements
-		readDataBases(dataBase4, dataBases[3]);
+//		System.out.println("------------------Reading DataBase4---------");
+//		readDataBases(dataBase4, dataBases[3]);
+//		getUniqueElements(dataBase1, uniqueFeatures);
+//		generateAssociation(dataBase1, uniqueFeatures, support, confidence);
 
 		// reading the database5 and getting the unique elements
-		readDataBases(dataBase5, dataBases[4]);
+//		System.out.println("------------------Reading DataBase5---------");
+//		readDataBases(dataBase5, dataBases[4]);
+//		getUniqueElements(dataBase1, uniqueFeatures);
+//		generateAssociation(dataBase1, uniqueFeatures, support, confidence);
 
 	}
 
@@ -86,13 +100,26 @@ public class TestApriori {
 			dynamicMapping.put(transfer, 0);
 			// transfer.remove(0);
 		}
-		// System.out.println(dynamicMapping);
+
 		int iteration = 1;
 //		while(dynamicMapping.size()!=1) {
 //			
 //		}0
 		calculateSupport(dataBase, dynamicMapping, iteration);
 		validateSupport(dynamicMapping, support, iteration);
+
+		iteration = iteration + 1;
+		makeNewFrequentList(dynamicMapping, iteration);
+		calculateSupport(dataBase, dynamicMapping, iteration);
+		validateSupport(dynamicMapping, support, iteration);
+
+		iteration = iteration + 1;
+		makeNewFrequentList(dynamicMapping, iteration);
+		System.out.println(frequentItems);
+		System.out.println(dynamicMapping.size());
+		if (dynamicMapping.size() == 0) {
+			makeFinalCalculation(iteration, confidence, support);
+		}
 	}
 
 	public static void calculateSupport(HashMap<ArrayList<String>, Integer> dataBase,
@@ -117,38 +144,80 @@ public class TestApriori {
 			}
 
 		}
-//		for (Map.Entry<ArrayList<String>, Integer> entry : dynamicMapping.entrySet()) {
-//			System.out.println(entry.getKey() + "   " + entry.getValue());
+
+//		System.out.println("The support count of the elements after " + iteration + " iteration");
+//		for (Map.Entry element : dynamicMapping.entrySet()) {
+//			System.out.println(element.getKey() + "   " + element.getValue());
 //		}
-		System.out.println("The support count of the elements after " + iteration + " iteration");
+	}
+
+	public static void validateSupport(HashMap<ArrayList<String>, Integer> dynamicMapping, int support, int iteration) {
+		// checking the non valid support values
+		for (ArrayList<String> arr : dynamicMapping.keySet()) {
+			// System.out.println(dynamicMapping.get(arr));
+			if (dynamicMapping.get(arr) < support) {
+				// System.out.println("hi");
+				nonFrequentItems.put(arr, dynamicMapping.get(arr));
+				// dynamicMapping.remove(arr);
+			} else {
+				frequentItems.put(arr, iteration);
+			}
+		}
+
+		// removing the nonvalid support items from the list
+		for (ArrayList<String> arr : nonFrequentItems.keySet()) {
+			if (dynamicMapping.containsKey(arr)) {
+				dynamicMapping.remove(arr);
+			}
+		}
+
+		System.out.println("--------------------------------------------------------");
+		System.out.println("The new frequent items after " + iteration + " iteration");
 		for (Map.Entry element : dynamicMapping.entrySet()) {
 			System.out.println(element.getKey() + "   " + element.getValue());
 		}
 	}
 
-	public static void validateSupport(HashMap<ArrayList<String>, Integer> dynamicMapping, int support, int iteration) {
-		//checking the non valid support values
-		for (ArrayList<String> arr : dynamicMapping.keySet()) {
-			// System.out.println(dynamicMapping.get(arr));
-			if (dynamicMapping.get(arr) < support) {
-				//System.out.println("hi");
-				nonFrequentItems.put(arr, dynamicMapping.get(arr));
-				//dynamicMapping.remove(arr);
-			} else {
-				frequentItems.put(arr, iteration);
+	public static void makeNewFrequentList(HashMap<ArrayList<String>, Integer> dynamicMapping, int iteration) {
+		ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
+		for (ArrayList<String> str1 : dynamicMapping.keySet()) {
+			// list.add(new ArrayList<String>());
+			list.add(str1);
+		}
+		// System.out.println(list.size());
+		dynamicMapping.clear();
+		// System.out.println(dynamicMapping);
+		HashSet<String> hashInterface = new HashSet<String>();
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = i + 1; j < list.size(); j++) {
+				for (int k = 0; k < list.get(i).size(); k++) {
+					hashInterface.add(list.get(i).get(k));
+				}
+				for (int k = 0; k < list.get(j).size(); k++) {
+					hashInterface.add(list.get(j).get(k));
+				}
+				if (hashInterface.size() == iteration) {
+					ArrayList<String> newList = new ArrayList<String>();
+					for (String stri : hashInterface) {
+						newList.add(stri);
+					}
+					Collections.sort(newList);
+					dynamicMapping.put(newList, 0);
+				}
+				hashInterface.clear();
 			}
 		}
-		
-		//removing the nonvalid support items from the list
-		for (ArrayList<String> arr : nonFrequentItems.keySet()) {
-			if(dynamicMapping.containsKey(arr)) {
-				dynamicMapping.remove(arr);
-			}
-		}
-		System.out.println("The new frequent items after "+iteration+" iteration");
-		for (Map.Entry element : dynamicMapping.entrySet()) {
-			System.out.println(element.getKey() + "   " + element.getValue());
-		}
-		//System.out.println(nonFrequentItems);
+
+//		System.out.println(dynamicMapping.size());
+//		for (Map.Entry element : dynamicMapping.entrySet()) {
+//			System.out.println(element.getKey() + "   " + element.getValue());
+//		}
+	}
+
+	public static void makeFinalCalculation(int iteration, int confidence, int support) {
+//		System.out.println(frequentItems.size());
+//		for (Map.Entry element : frequentItems.entrySet()) {
+//			System.out.println(element.getKey() + "   " + element.getValue());
+//		}
 	}
 }
