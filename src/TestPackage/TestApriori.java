@@ -18,7 +18,7 @@ public class TestApriori {
 
 	public static void main(String[] args) {
 		double support = 0.5;
-		double confidence = 2;
+		double confidence = 0.7;
 		String[] dataBases = { "DataBase1.csv", "DataBase2.csv", "DataBase3.csv", "DataBase4.csv", "DataBase5.csv" };
 		HashMap<ArrayList<String>, Integer> dataBase1 = new HashMap<ArrayList<String>, Integer>();
 		HashMap<ArrayList<String>, Integer> dataBase2 = new HashMap<ArrayList<String>, Integer>();
@@ -130,7 +130,7 @@ public class TestApriori {
 		System.out.println(frequentItems);
 		System.out.println(dynamicMapping.size());
 		makeFinalList(iteration, confidence, support);
-		calculateConfidence(dataBase,confidence, support);
+		calculateConfidence(dataBase, confidence, support);
 //		if (dynamicMapping.size() == 0) {
 //			makeFinalCalculation(iteration, confidence, support);
 //		}
@@ -251,50 +251,84 @@ public class TestApriori {
 					String[] staging1 = new String[2];
 					staging[0] = array.get(i).get(j);
 					staging1[1] = array.get(i).get(j);
-					// System.out.println(array.get(i).get(j));
+					System.out.println(array.get(i).get(j));
 					for (int k = 0; k < array.get(i).size(); k++) {
 						if (k != j) {
-							str.append(array.get(i).get(k)+",");
+							str.append(array.get(i).get(k) + ",");
 						}
 					}
 					staging[1] = str.toString();
 					staging1[0] = str.toString();
-					// System.out.println(Arrays.toString(staging));
+					System.out.println(Arrays.toString(staging));
 					finalMapping.put(staging, itemCount.get(i));
-					finalMapping.put(staging1, itemCount.get(i));
+					if (array.get(i).size() > 2) {
+						System.out.println(Arrays.toString(staging1));
+						finalMapping.put(staging1, itemCount.get(i));
+					}
 					str.delete(0, str.length());
-					// System.out.println("----------");
+					System.out.println("----------");
 				}
 
 			}
 		}
 
-		for (Map.Entry element : finalMapping.entrySet()) {
-			String[] arrena=(String[]) element.getKey();
-			//System.out.println(Arrays.toString(arrena));
-			System.out.println(arrena[0]);
-			System.out.println(element.getValue());
-		}
-		
+//		for (Map.Entry element : finalMapping.entrySet()) {
+//			String[] arrena=(String[]) element.getKey();
+//			System.out.println(Arrays.toString(arrena));
+//			System.out.println(arrena[0]);
+//			System.out.println(element.getValue());
+//			System.out.println("-------");
+//		}
+
 	}
 
-	public static void calculateConfidence(HashMap<ArrayList<String>, Integer> dataBase,double confidence, double support) {
-		//System.out.println(uniqueFeatures);
-		System.out.println(dataBase);
+	public static void calculateConfidence(HashMap<ArrayList<String>, Integer> dataBase, double confidence,
+			double support) {
+		// System.out.println(uniqueFeatures);
+//		System.out.println(dataBase);
+//		System.out.println(finalMapping);
 		int elementCount;
+		int finalCount;
+		int desiredCount;
 		HashMap<String[], Integer> confidenceCount = new HashMap<String[], Integer>();
 		for (Map.Entry element : finalMapping.entrySet()) {
 			String[] arrena = (String[]) element.getKey();
-			System.out.println(arrena[0]);
-			elementCount=0;
-			for(ArrayList<String> arr:dataBase.keySet()) {
-				if(arr.contains(arrena[0])) {
-					elementCount=elementCount+1;
+			// System.out.println(arrena[0]);
+			if (arrena[0].indexOf(",") != -1) {
+				elementCount = 0;
+				String[] parts = arrena[0].split(",");
+				desiredCount = 0;
+				finalCount = 0;
+				for (ArrayList<String> arr : dataBase.keySet()) {
+					for (int i = 0; i < parts.length; i++) {
+						if (arr.contains(parts[i])) {
+							finalCount = finalCount + 1;
+						}
+					}
+					// System.out.println("final "+finalCount);
+					if (finalCount == parts.length) {
+						elementCount = elementCount + 1;
+					}
+					finalCount = 0;
 				}
+
+			} else {
+				elementCount = 0;
+				for (ArrayList<String> arr : dataBase.keySet()) {
+					if (arr.contains(arrena[0])) {
+						elementCount = elementCount + 1;
+					}
+				}
+				// System.out.println(arrena[0] + "=" + elementCount);
 			}
-			System.out.println(elementCount);
-			elementCount=0;
+			// System.out.println(arrena[0] +"="+element.getValue() +"="+elementCount);
+			// int value=(int) element.getValue();
+			// System.out.println((int)element.getValue()/(double)elementCount);
+			if (((int) element.getValue() / (double) elementCount) > confidence) {
+				System.out.println("The final value is =" + Arrays.toString(arrena));
+			}
 		}
+//		System.out.println(nonFrequentItems);
 	}
 
 }
