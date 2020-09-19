@@ -88,33 +88,39 @@ public class BruteForceApriori {
 		int iteration = 1;
 		boolean stop = true;
 		
-		while(stop) {
+		while(true) {
+			// calculate the support of already generated HashMap of items.
+			calculateBruteSupport(dataBase, dynamicMapping, iteration);
+			stop = validateBruteSupport(dynamicMapping, support, iteration);
+			System.out.println(stop);
+			if(!stop) {
+				System.out.println("---------------------------");
+				System.out.println("There are no frequent items from list : C"+iteration);
+				break;
+			}
+			iteration = iteration + 1;
+			// make the k+1 HasMap of items after eliminating on the basis of support.
+			makeBruteNewFrequentList(dynamicMapping, iteration);
 			
 		}
 
-		// calculate the support of already generated HashMap of items.
-		calculateBruteSupport(dataBase, dynamicMapping, iteration);
-		stop = validateBruteSupport(dynamicMapping, support, iteration);
-		System.out.println(stop);
-		iteration = iteration + 1;
-		// make the k+1 HasMap of items after eliminating on the basis of support.
-		makeBruteNewFrequentList(dynamicMapping, iteration);
-
-		calculateBruteSupport(dataBase, dynamicMapping, iteration);
-		stop = validateBruteSupport(dynamicMapping, support, iteration);
-		System.out.println(stop);
-		iteration = iteration + 1;
-		makeBruteNewFrequentList(dynamicMapping, iteration);
-
-		calculateBruteSupport(dataBase, dynamicMapping, iteration);
-		stop = validateBruteSupport(dynamicMapping, support, iteration);
-		System.out.println(stop);
-		iteration = iteration + 1;
-		makeBruteNewFrequentList(dynamicMapping, iteration);
 		
-		calculateBruteSupport(dataBase, dynamicMapping, iteration);
-		stop = validateBruteSupport(dynamicMapping, support, iteration);
-		System.out.println(stop);
+
+//		calculateBruteSupport(dataBase, dynamicMapping, iteration);
+//		stop = validateBruteSupport(dynamicMapping, support, iteration);
+//		System.out.println(stop);
+//		iteration = iteration + 1;
+//		makeBruteNewFrequentList(dynamicMapping, iteration);
+//
+//		calculateBruteSupport(dataBase, dynamicMapping, iteration);
+//		stop = validateBruteSupport(dynamicMapping, support, iteration);
+//		System.out.println(stop);
+//		iteration = iteration + 1;
+//		makeBruteNewFrequentList(dynamicMapping, iteration);
+//		
+//		calculateBruteSupport(dataBase, dynamicMapping, iteration);
+//		stop = validateBruteSupport(dynamicMapping, support, iteration);
+//		System.out.println(stop);
 	}
 
 	public static void calculateBruteSupport(HashMap<ArrayList<String>, Integer> dataBase,
