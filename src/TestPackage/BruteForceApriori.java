@@ -2,6 +2,7 @@ package TestPackage;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.Scanner;
 
 public class BruteForceApriori {
 	public static HashSet<String> uniqueFeatures = new HashSet<String>();
+	public static int databaseSize = 0;
 
 	public static void main(String[] args) {
 		double support = 0.5;
@@ -23,6 +25,7 @@ public class BruteForceApriori {
 		// reading the database1 and getting the unique elements
 		System.out.println("------------------Reading DataBase1---------");
 		readBruteDataBases(dataBase1, dataBases[1]);
+		databaseSize = dataBase1.size();
 		getBruteUniqueElements(dataBase1, uniqueFeatures);
 		generateBruteAssociation(dataBase1, uniqueFeatures, support, confidence);
 
@@ -84,11 +87,34 @@ public class BruteForceApriori {
 		// iteration will keep the count for size of each row in itemList
 		int iteration = 1;
 		boolean stop = true;
+		
+		while(stop) {
+			
+		}
 
 		// calculate the support of already generated HashMap of items.
 		calculateBruteSupport(dataBase, dynamicMapping, iteration);
-		validateSupport(dynamicMapping, support, iteration);
+		stop = validateBruteSupport(dynamicMapping, support, iteration);
+		System.out.println(stop);
+		iteration = iteration + 1;
+		// make the k+1 HasMap of items after eliminating on the basis of support.
+		makeBruteNewFrequentList(dynamicMapping, iteration);
 
+		calculateBruteSupport(dataBase, dynamicMapping, iteration);
+		stop = validateBruteSupport(dynamicMapping, support, iteration);
+		System.out.println(stop);
+		iteration = iteration + 1;
+		makeBruteNewFrequentList(dynamicMapping, iteration);
+
+		calculateBruteSupport(dataBase, dynamicMapping, iteration);
+		stop = validateBruteSupport(dynamicMapping, support, iteration);
+		System.out.println(stop);
+		iteration = iteration + 1;
+		makeBruteNewFrequentList(dynamicMapping, iteration);
+		
+		calculateBruteSupport(dataBase, dynamicMapping, iteration);
+		stop = validateBruteSupport(dynamicMapping, support, iteration);
+		System.out.println(stop);
 	}
 
 	public static void calculateBruteSupport(HashMap<ArrayList<String>, Integer> dataBase,
@@ -113,10 +139,66 @@ public class BruteForceApriori {
 			}
 
 		}
- 
+
 		System.out.println(dataBase);
 		System.out.println("--------------------------------------------------------");
 		System.out.println("The support count of the elements after " + iteration + " iteration : " + "C" + iteration);
+		for (Map.Entry element : dynamicMapping.entrySet()) {
+			System.out.println(element.getKey() + "   " + element.getValue());
+		}
+
+	}
+
+	public static boolean validateBruteSupport(HashMap<ArrayList<String>, Integer> dynamicMapping, double support,
+			int iteration) {
+
+		boolean status = false;
+		for (ArrayList<String> arr : dynamicMapping.keySet()) {
+			if ((dynamicMapping.get(arr) / (double) databaseSize) >= support) {
+				status = true;
+			}
+		}
+
+		return status;
+
+	}
+
+	public static void makeBruteNewFrequentList(HashMap<ArrayList<String>, Integer> dynamicMapping, int iteration) {
+
+		ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
+		for (ArrayList<String> str1 : dynamicMapping.keySet()) {
+			list.add(str1);
+		}
+
+		// here we are clearing the HashMap so that we can refill it with new Items.
+		dynamicMapping.clear();
+		HashSet<String> hashInterface = new HashSet<String>();
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = i + 1; j < list.size(); j++) {
+				for (int k = 0; k < list.get(i).size(); k++) {
+					hashInterface.add(list.get(i).get(k));
+				}
+				for (int k = 0; k < list.get(j).size(); k++) {
+					hashInterface.add(list.get(j).get(k));
+				}
+				if (hashInterface.size() == iteration) {
+					ArrayList<String> newList = new ArrayList<String>();
+					for (String stri : hashInterface) {
+						newList.add(stri);
+					}
+					// Collections.sort(newList);
+					dynamicMapping.put(newList, 0);
+				}
+				hashInterface.clear();
+			}
+
+		}
+
+		System.out.println("--------------------------------------------------------");
+		System.out.println("The List of items after " + iteration + " iteration : ");
+		if (dynamicMapping.size() == 0) {
+			System.out.println("No combinations are formed");
+		}
 		for (Map.Entry element : dynamicMapping.entrySet()) {
 			System.out.println(element.getKey() + "   " + element.getValue());
 		}
