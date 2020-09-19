@@ -111,7 +111,7 @@ public class TestApriori {
 			// For the start we are entering count as 0 for the elements
 			dynamicMapping.put(transfer, 0);
 		}
-
+ 
 		// iteration will keep the count for size of each row in itemList
 		int iteration = 1;
 		boolean stop = true;
