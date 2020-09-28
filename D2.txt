@@ -1,0 +1,20 @@
+AP02_75301 :Bike,Bike Helmet
+AP02_75302 :Bike
+AP02_75303 :Coffee Maker,Milk Chocolate
+AP02_75304 :Bike Lubricant
+AP02_75305 :Bike,Bike Helmet,Table
+AP02_75306 :Caramel Cappuccino,Milk Chocolate
+AP02_75307 :Caramel Cappuccino,Coffee Maker,Milk Chocolate
+AP02_75308 :Coffee Maker,Caramel Cappuccino
+AP02_75309 :Table,LED TV
+AP02_75310 :Milk Chocolate,Caramel Cappuccino,Coffee Maker
+AP02_75311 :Bike,Cable Lock,Bike Lubricant
+AP02_75312 :LED TV
+AP02_75313 :book,Caramel Cappuccino,Milk Chocolate
+AP02_75314 :LED TV,Bike,Cable Lock,Bike Lubricant
+AP02_75315 :Bike Helmet,Bike Lubricant
+AP02_75316 :Bike Lubricant,Table,Coffee Maker 
+AP02_75317 :Coffee Maker,LED TV
+AP02_75318 :book,Bike,Cable Lock
+AP02_75319 :Bike,Bike Helmet,Table
+AP02_75320 :LED TV,Bike,Bike Helmet,Table
