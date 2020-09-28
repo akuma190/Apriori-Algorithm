@@ -1,20 +1,20 @@
-1,FacialRazor,AppleCider,Solstice
-2,Amberen,Oracoat,PJmasks
-3,Yogourmet,Irritable,Precise
-4,PJmasks,Yogourmet,Leader
-5,Aquage,Motions,PJmasks
-6,Oster,Nodoz,Honees
-7,AuntJackies,Kinky,Leader
-8,CountryFarms,Chromelin
-9,Nodoz,Reliable,Honees
-10,Medicado,Leader,Amberen
-11,Dermend,Solstice,FacialRazor
-12,MicroTouch,Compound,Solstice
-13,Natural,Soltice,Natural
-14,Honees,Titan,Leader
-15,Precise,Heliocare,Amberen
-16,Heliocare,Yogamat,Precise
-17,Titan,Oster,Natural
-18,Soltice,PJmasks,Nodozer
-19,Compound,Amberen,Nodozer
-20,Solstice,FacialRazor,Precise
+1,Table,LED TV,book
+2,Bike Lubricant,Bike,Cable Lock
+3,Milk Chocolate,Coffee Maker
+4,Bike,Milk Chocolate,LED TV
+5,Table,book
+6,book,Caramel Cappuccino,Milk Chocolate
+7,Caramel Cappuccino,Coffee Maker,Milk Chocolate
+8,Bike Helmet,Caramel Cappuccino,Coffee Maker 
+9,Table,book
+10,Milk Chocolate,Caramel Cappuccino,Coffee Maker 
+11,Bike,Cable Lock,Bike Lubricant,LED TV 
+12,LED TV,Coffee Maker
+13,book,Caramel Cappuccino,Milk Chocolate
+14,LED TV,Bike
+15,Bike,Bike Lubricant
+16,book,Coffee Maker 
+17,Cable Lock,Coffee Maker,LED TV,Caramel Cappuccino
+18,Coffee Maker,book,Bike,Cable Lock,,Caramel Cappuccino
+19,book,Bike,Bike Helmet,Table
+20,book,Bike,Bike Helmet
