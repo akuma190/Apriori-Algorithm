@@ -14,7 +14,7 @@ public class BruteForceApriori {
 
 	public static void main(String[] args) {
 		double support = 0.5;
-		double confidence = 0.7;
+		double confidence = 0.75;
 		String[] dataBases = { "DataBase1.csv", "DataBase2.csv", "DataBase3.csv", "DataBase4.csv", "DataBase5.csv" };
 		HashMap<ArrayList<String>, Integer> dataBase1 = new HashMap<ArrayList<String>, Integer>();
 		HashMap<ArrayList<String>, Integer> dataBase2 = new HashMap<ArrayList<String>, Integer>();
@@ -24,7 +24,7 @@ public class BruteForceApriori {
 
 		// reading the database1 and getting the unique elements
 		System.out.println("------------------Reading DataBase1---------");
-		readBruteDataBases(dataBase1, dataBases[1]);
+		readBruteDataBases(dataBase1, dataBases[2]);
 		databaseSize = dataBase1.size();
 		getBruteUniqueElements(dataBase1, uniqueFeatures);
 		generateBruteAssociation(dataBase1, uniqueFeatures, support, confidence);
