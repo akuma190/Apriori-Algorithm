@@ -1,0 +1,5 @@
+1,bread,cheese,egg,juice
+2,bread,cheese,juice
+3,bread,milk,yogurt
+4,bread,juice,,milk
+5,cheese,juice,milk
