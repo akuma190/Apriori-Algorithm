@@ -18,8 +18,8 @@ public class TestApriori {
 
 	public static void main(String[] args) {
 
-		double support = 0.5;
-		double confidence = 0.7;
+		double support = 0.1;
+		double confidence = 0.1;
 		String[] dataBases = { "DataBase1.csv", "DataBase2.csv", "DataBase3.csv", "DataBase4.csv", "DataBase5.csv" };
 		HashMap<ArrayList<String>, Integer> dataBase1 = new HashMap<ArrayList<String>, Integer>();
 		HashMap<ArrayList<String>, Integer> dataBase2 = new HashMap<ArrayList<String>, Integer>();
@@ -27,36 +27,60 @@ public class TestApriori {
 		HashMap<ArrayList<String>, Integer> dataBase4 = new HashMap<ArrayList<String>, Integer>();
 		HashMap<ArrayList<String>, Integer> dataBase5 = new HashMap<ArrayList<String>, Integer>();
 
-//		// reading the database1 and getting the unique elements
-//		System.out.println("------------------Reading DataBase1---------");
-//		readDataBases(dataBase1, dataBases[0]);
-//		getUniqueElements(dataBase1, uniqueFeatures);
-//		generateAssociation(dataBase1, uniqueFeatures, support, confidence);
-
+		// reading the database1 and getting the unique elements
+		System.out.println("+++++++++++++++++Reading DataBase1+++++++++");
+		readDataBases(dataBase1, dataBases[0]);
+		databaseSize = dataBase1.size();
+		getUniqueElements(dataBase1, uniqueFeatures);
+		generateAssociation(dataBase1, uniqueFeatures, support, confidence);
+        
+		frequentItems.clear();
+		nonFrequentItems.clear();
+		finalMapping.clear();
+		uniqueFeatures.clear();
 		// reading the database2 and getting the unique elements
-		System.out.println("------------------Reading DataBase2---------");
-		readDataBases(dataBase2, dataBases[1]);
+		System.out.println(" ");
+		System.out.println("+++++++++++++++++Reading DataBase2+++++++++");
+		readDataBases(dataBase2, dataBases[0]);
 		databaseSize = dataBase2.size();
 		getUniqueElements(dataBase2, uniqueFeatures);
 		generateAssociation(dataBase2, uniqueFeatures, support, confidence);
 
+		frequentItems.clear();
+		nonFrequentItems.clear();
+		finalMapping.clear();
+		uniqueFeatures.clear();
 		// reading the database2 and getting the unique elements
-		// System.out.println("------------------Reading DataBase3---------");
-//		readDataBases(dataBase3, dataBases[2]);
-//		getUniqueElements(dataBase1, uniqueFeatures);
-//		generateAssociation(dataBase1, uniqueFeatures, support, confidence);
+		System.out.println(" ");
+		System.out.println("+++++++++++++++++Reading DataBase3+++++++++");
+		readDataBases(dataBase3, dataBases[0]);
+		databaseSize = dataBase3.size();
+		getUniqueElements(dataBase3, uniqueFeatures);
+		generateAssociation(dataBase3, uniqueFeatures, support, confidence);
 
+		frequentItems.clear();
+		nonFrequentItems.clear();
+		finalMapping.clear();
+		uniqueFeatures.clear();
 		// reading the database4 and getting the unique elements
-//		System.out.println("------------------Reading DataBase4---------");
-//		readDataBases(dataBase4, dataBases[3]);
-//		getUniqueElements(dataBase1, uniqueFeatures);
-//		generateAssociation(dataBase1, uniqueFeatures, support, confidence);
+		System.out.println(" ");
+		System.out.println("+++++++++++++++++Reading DataBase4+++++++++");
+		readDataBases(dataBase4, dataBases[0]);
+		databaseSize = dataBase4.size();
+		getUniqueElements(dataBase4, uniqueFeatures);
+		generateAssociation(dataBase4, uniqueFeatures, support, confidence);
 
+		frequentItems.clear();
+		nonFrequentItems.clear();
+		finalMapping.clear();
+		uniqueFeatures.clear();
 		// reading the database5 and getting the unique elements
-//		System.out.println("------------------Reading DataBase5---------");
-//		readDataBases(dataBase5, dataBases[4]);
-//		getUniqueElements(dataBase1, uniqueFeatures);
-//		generateAssociation(dataBase1, uniqueFeatures, support, confidence);
+		System.out.println(" ");
+		System.out.println("+++++++++++++++++Reading DataBase5+++++++++");
+		readDataBases(dataBase5, dataBases[0]);
+		databaseSize = dataBase5.size();
+		getUniqueElements(dataBase5, uniqueFeatures);
+		generateAssociation(dataBase5, uniqueFeatures, support, confidence);
 
 	}
 
@@ -164,8 +188,10 @@ public class TestApriori {
 
 		System.out.println("--------------------------------------------------------");
 		System.out.println("The support count of the elements after " + iteration + " iteration : " + "C" + iteration);
+		int dyna=0;
 		for (Map.Entry element : dynamicMapping.entrySet()) {
-			System.out.println(element.getKey() + "   " + element.getValue());
+			dyna=(int) element.getValue();
+			System.out.println(element.getKey() + "   " + element.getValue()+" ||Support = "+(dyna/(double)databaseSize));
 		}
 	}
 
@@ -332,7 +358,7 @@ public class TestApriori {
 
 			}
 
-			if (((int) element.getValue() / (double) elementCount) > confidence) {
+			if (((int) element.getValue() / (double) elementCount) >= confidence) {
 				System.out.println(Arrays.toString(arrena) + " || Support = "
 						+ (((int) element.getValue() / (double) databaseSize) * 100) + "%" + " || Confidence ="
 						+ (((int) element.getValue() / (double) elementCount) * 100) + "%");
