@@ -1,4 +1,20 @@
-1001,ink,pen,cheese,bag
-1002,milk,pen,juice,cheese
-1003,milk,juice
-1004,juice,milk,cheese
+1,Bike,Bike Helmet
+2,Bike
+3,Coffee Maker,Milk Chocolate
+4,Bike Lubricant
+5,Bike,Bike Helmet,Table
+6,Caramel Cappuccino,Milk Chocolate
+7,Caramel Cappuccino,Coffee Maker,Milk Chocolate
+8,Coffee Maker,Caramel Cappuccino
+9,Table,LED TV
+10,Milk Chocolate,Caramel Cappuccino,Coffee Maker
+11,Bike,Cable Lock,Bike Lubricant
+12,LED TV
+13,book,Caramel Cappuccino,Milk Chocolate
+14,LED TV,Bike,Cable Lock,Bike Lubricant
+15,Bike Helmet,Bike Lubricant
+16,Bike Lubricant,Table,Coffee Maker 
+17,Coffee Maker,LED TV
+18,book,Bike,Cable Lock
+19,Bike,Bike Helmet,Table
+20,LED TV,Bike,Bike Helmet,Table
