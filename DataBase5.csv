@@ -1,20 +1,20 @@
-1,FacialRazor,AppleCider,Solstice
-2,Amberen,Oracoat,PJmasks
-3,Yogourmet,Irritable,Precise
-4,PJmasks,Yogourmet,Leader
-5,Aquage,Motions,PJmasks
-6,Oster,Nodoz,Honees
-7,AuntJackies,Kinky,Leader
-8,CountryFarms,Chromelin
-9,Nodoz,Reliable,Honees
-10,Medicado,Leader,Amberen
-11,Dermend,Solstice,FacialRazor
-12,MicroTouch,Compound,Solstice
-13,Natural,Soltice,Natural
-14,Honees,Titan,Leader
-15,Precise,Heliocare,Amberen
-16,Heliocare,Yogamat,Precise
-17,Titan,Oster,Natural
-18,Soltice,PJmasks,Nodozer
-19,Compound,Amberen,Nodozer
-20,Solstice,FacialRazor,Precise
+AP01_56701 :Bike,Bike Helmet,Cable Lock
+AP01_56702 :Bike Lubricant,Bike,Cable Lock,LED TV
+AP01_56703 :Cable Lock,Coffee Maker
+AP01_56704 :Bike Lubricant,Bike,Milk Chocolate,LED TV
+AP01_56705 :book,Bike Helmet,Table
+AP01_56706 :Bike Helmet,Caramel Cappuccino,Milk Chocolate
+AP01_56707 :Caramel Cappuccino,Coffee Maker,Milk Chocolate
+AP01_56708 :Bike Helmet,Caramel Cappuccino
+AP01_56709 :Table,Cable Lock
+AP01_56710 :Milk Chocolate,Caramel Cappuccino
+AP01_56711 :Bike,Cable Lock,Bike Lubricant,LED TV 
+AP01_56712 :LED TV,Cable Lock,Coffee Maker
+AP01_56713 :book,Caramel Cappuccino,Milk Chocolate
+AP01_56714 :LED TV,Bike,Cable Lock,Bike Lubricant
+AP01_56715 :Bike,Bike Helmet,Bike Lubricant
+AP01_56716 :Bike Lubricant,Table,Bike,Coffee Maker 
+AP01_56717 :Cable Lock,Coffee Maker,LED TV
+AP01_56718 :Coffee Maker,book,Bike,Cable Lock
+AP01_56719 :book,Bike,Bike Helmet,Table
+AP01_56720 :LED TV,Bike,Bike Helmet,Table
