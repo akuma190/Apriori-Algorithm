@@ -106,6 +106,9 @@ public class Apriori {
 					}
 				}
 			}
+			for(HashSet<String> frr:fis.keySet()) {
+				System.out.println(frr+"-->"+fis.get(frr));
+			}
 			for (Map.Entry<HashSet<String>, Integer> entry : fis.entrySet()) {
 				atest = new String[entry.getKey().size()];
 				entry.getKey().toArray(atest);
@@ -137,6 +140,10 @@ public class Apriori {
 					tempx.addAll(entry.getKey());
 				}
 				orr = new HashSet<HashSet<String>>();
+			}
+			System.out.println("printing the value of the lists");
+			for(HashSet<String> ls : orr) {
+				System.out.println(ls);
 			}
 			//END Calculating the support and confidence 
 			if(noy==1) {
