@@ -18,8 +18,8 @@ public class TestApriori {
 
 	public static void main(String[] args) {
 
-		double support = 0.1;
-		double confidence = 0.1;
+		double support = 0.5;
+		double confidence = 0.7;
 		String[] dataBases = { "DataBase1.csv", "DataBase2.csv", "DataBase3.csv", "DataBase4.csv", "DataBase5.csv" };
 		HashMap<ArrayList<String>, Integer> dataBase1 = new HashMap<ArrayList<String>, Integer>();
 		HashMap<ArrayList<String>, Integer> dataBase2 = new HashMap<ArrayList<String>, Integer>();
@@ -29,58 +29,58 @@ public class TestApriori {
 
 		// reading the database1 and getting the unique elements
 		System.out.println("+++++++++++++++++Reading DataBase1+++++++++");
-		readDataBases(dataBase1, dataBases[0]);
+		readDataBases(dataBase1, dataBases[4]);
 		databaseSize = dataBase1.size();
 		getUniqueElements(dataBase1, uniqueFeatures);
 		generateAssociation(dataBase1, uniqueFeatures, support, confidence);
         
-		frequentItems.clear();
-		nonFrequentItems.clear();
-		finalMapping.clear();
-		uniqueFeatures.clear();
-		// reading the database2 and getting the unique elements
-		System.out.println(" ");
-		System.out.println("+++++++++++++++++Reading DataBase2+++++++++");
-		readDataBases(dataBase2, dataBases[0]);
-		databaseSize = dataBase2.size();
-		getUniqueElements(dataBase2, uniqueFeatures);
-		generateAssociation(dataBase2, uniqueFeatures, support, confidence);
-
-		frequentItems.clear();
-		nonFrequentItems.clear();
-		finalMapping.clear();
-		uniqueFeatures.clear();
-		// reading the database2 and getting the unique elements
-		System.out.println(" ");
-		System.out.println("+++++++++++++++++Reading DataBase3+++++++++");
-		readDataBases(dataBase3, dataBases[0]);
-		databaseSize = dataBase3.size();
-		getUniqueElements(dataBase3, uniqueFeatures);
-		generateAssociation(dataBase3, uniqueFeatures, support, confidence);
-
-		frequentItems.clear();
-		nonFrequentItems.clear();
-		finalMapping.clear();
-		uniqueFeatures.clear();
-		// reading the database4 and getting the unique elements
-		System.out.println(" ");
-		System.out.println("+++++++++++++++++Reading DataBase4+++++++++");
-		readDataBases(dataBase4, dataBases[0]);
-		databaseSize = dataBase4.size();
-		getUniqueElements(dataBase4, uniqueFeatures);
-		generateAssociation(dataBase4, uniqueFeatures, support, confidence);
-
-		frequentItems.clear();
-		nonFrequentItems.clear();
-		finalMapping.clear();
-		uniqueFeatures.clear();
-		// reading the database5 and getting the unique elements
-		System.out.println(" ");
-		System.out.println("+++++++++++++++++Reading DataBase5+++++++++");
-		readDataBases(dataBase5, dataBases[0]);
-		databaseSize = dataBase5.size();
-		getUniqueElements(dataBase5, uniqueFeatures);
-		generateAssociation(dataBase5, uniqueFeatures, support, confidence);
+//		frequentItems.clear();
+//		nonFrequentItems.clear();
+//		finalMapping.clear();
+//		uniqueFeatures.clear();
+//		// reading the database2 and getting the unique elements
+//		System.out.println(" ");
+//		System.out.println("+++++++++++++++++Reading DataBase2+++++++++");
+//		readDataBases(dataBase2, dataBases[0]);
+//		databaseSize = dataBase2.size();
+//		getUniqueElements(dataBase2, uniqueFeatures);
+//		generateAssociation(dataBase2, uniqueFeatures, support, confidence);
+//
+//		frequentItems.clear();
+//		nonFrequentItems.clear();
+//		finalMapping.clear();
+//		uniqueFeatures.clear();
+//		// reading the database2 and getting the unique elements
+//		System.out.println(" ");
+//		System.out.println("+++++++++++++++++Reading DataBase3+++++++++");
+//		readDataBases(dataBase3, dataBases[0]);
+//		databaseSize = dataBase3.size();
+//		getUniqueElements(dataBase3, uniqueFeatures);
+//		generateAssociation(dataBase3, uniqueFeatures, support, confidence);
+//
+//		frequentItems.clear();
+//		nonFrequentItems.clear();
+//		finalMapping.clear();
+//		uniqueFeatures.clear();
+//		// reading the database4 and getting the unique elements
+//		System.out.println(" ");
+//		System.out.println("+++++++++++++++++Reading DataBase4+++++++++");
+//		readDataBases(dataBase4, dataBases[0]);
+//		databaseSize = dataBase4.size();
+//		getUniqueElements(dataBase4, uniqueFeatures);
+//		generateAssociation(dataBase4, uniqueFeatures, support, confidence);
+//
+//		frequentItems.clear();
+//		nonFrequentItems.clear();
+//		finalMapping.clear();
+//		uniqueFeatures.clear();
+//		// reading the database5 and getting the unique elements
+//		System.out.println(" ");
+//		System.out.println("+++++++++++++++++Reading DataBase5+++++++++");
+//		readDataBases(dataBase5, dataBases[0]);
+//		databaseSize = dataBase5.size();
+//		getUniqueElements(dataBase5, uniqueFeatures);
+//		generateAssociation(dataBase5, uniqueFeatures, support, confidence);
 
 	}
 
