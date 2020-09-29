@@ -1,20 +1,4 @@
-AP01_56701 :Bike,Bike Helmet,Cable Lock
-AP01_56702 :Bike Lubricant,Bike,Cable Lock,LED TV
-AP01_56703 :Cable Lock,Coffee Maker
-AP01_56704 :Bike Lubricant,Bike,Milk Chocolate,LED TV
-AP01_56705 :book,Bike Helmet,Table
-AP01_56706 :Bike Helmet,Caramel Cappuccino,Milk Chocolate
-AP01_56707 :Caramel Cappuccino,Coffee Maker,Milk Chocolate
-AP01_56708 :Bike Helmet,Caramel Cappuccino
-AP01_56709 :Table,Cable Lock
-AP01_56710 :Milk Chocolate,Caramel Cappuccino
-AP01_56711 :Bike,Cable Lock,Bike Lubricant,LED TV 
-AP01_56712 :LED TV,Cable Lock,Coffee Maker
-AP01_56713 :book,Caramel Cappuccino,Milk Chocolate
-AP01_56714 :LED TV,Bike,Cable Lock,Bike Lubricant
-AP01_56715 :Bike,Bike Helmet,Bike Lubricant
-AP01_56716 :Bike Lubricant,Table,Bike,Coffee Maker 
-AP01_56717 :Cable Lock,Coffee Maker,LED TV
-AP01_56718 :Coffee Maker,book,Bike,Cable Lock
-AP01_56719 :book,Bike,Bike Helmet,Table
-AP01_56720 :LED TV,Bike,Bike Helmet,Table
+1001,ink,pen,cheese,bag
+1002,milk,pen,juice,cheese
+1003,milk,juice
+1004,juice,milk,cheese
