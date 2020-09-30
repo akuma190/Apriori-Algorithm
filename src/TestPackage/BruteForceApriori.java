@@ -2,6 +2,7 @@ package TestPackage;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,25 +10,40 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class BruteForceApriori {
+	public static HashMap<ArrayList<String>, Integer> frequentItems = new HashMap<ArrayList<String>, Integer>();
+	public static HashMap<String[], Integer> finalMapping = new HashMap<String[], Integer>();
 	public static HashSet<String> uniqueFeatures = new HashSet<String>();
 	public static int databaseSize = 0;
+	public static long start;
+	public static long end;
 
 	public static void main(String[] args) {
-		double support = 0.5;
-		double confidence = 0.75;
+		Scanner obj = new Scanner(System.in);
+		System.out.println("Enter the value for the support, example (.1 for 10%),(.7 for 70%)");
+		double support = obj.nextDouble();
+		System.out.println("Enter the value for the confidence, example (.1 for 10%),(.7 for 70%)");
+		double confidence = obj.nextDouble();
+		obj.close();
+		start = System.currentTimeMillis();
+//		double support = 0.1;
+//		double confidence = 0.1;
 		String[] dataBases = { "DataBase1.csv", "DataBase2.csv", "DataBase3.csv", "DataBase4.csv", "DataBase5.csv" };
 		HashMap<ArrayList<String>, Integer> dataBase1 = new HashMap<ArrayList<String>, Integer>();
-		HashMap<ArrayList<String>, Integer> dataBase2 = new HashMap<ArrayList<String>, Integer>();
-		HashMap<ArrayList<String>, Integer> dataBase3 = new HashMap<ArrayList<String>, Integer>();
-		HashMap<ArrayList<String>, Integer> dataBase4 = new HashMap<ArrayList<String>, Integer>();
-		HashMap<ArrayList<String>, Integer> dataBase5 = new HashMap<ArrayList<String>, Integer>();
+//		HashMap<ArrayList<String>, Integer> dataBase2 = new HashMap<ArrayList<String>, Integer>();
+//		HashMap<ArrayList<String>, Integer> dataBase3 = new HashMap<ArrayList<String>, Integer>();
+//		HashMap<ArrayList<String>, Integer> dataBase4 = new HashMap<ArrayList<String>, Integer>();
+//		HashMap<ArrayList<String>, Integer> dataBase5 = new HashMap<ArrayList<String>, Integer>();
 
 		// reading the database1 and getting the unique elements
 		System.out.println("------------------Reading DataBase1---------");
-		readBruteDataBases(dataBase1, dataBases[2]);
+		readBruteDataBases(dataBase1, dataBases[4]);
 		databaseSize = dataBase1.size();
 		getBruteUniqueElements(dataBase1, uniqueFeatures);
 		generateBruteAssociation(dataBase1, uniqueFeatures, support, confidence);
+
+		end = System.currentTimeMillis();
+		System.out.println("---------------------------------------------------------------------");
+		System.out.println("Total time elapsed while the running of the program = " + (end - start));
 
 	}
 
@@ -82,45 +98,36 @@ public class BruteForceApriori {
 			dynamicMapping.put(transfer, 0);
 		}
 
-		System.out.println(dynamicMapping);
+		// System.out.println(dynamicMapping);
 
 		// iteration will keep the count for size of each row in itemList
 		int iteration = 1;
 		boolean stop = true;
-		
-		while(true) {
+
+		while (true) {
 			// calculate the support of already generated HashMap of items.
 			calculateBruteSupport(dataBase, dynamicMapping, iteration);
 			stop = validateBruteSupport(dynamicMapping, support, iteration);
-			System.out.println(stop);
-			if(!stop) {
+			// System.out.println(stop);
+			if (!stop) {
 				System.out.println("---------------------------");
-				System.out.println("There are no frequent items from list : C"+iteration);
+				System.out.println("There are no frequent items from list : C" + iteration + " in the dar");
 				break;
 			}
 			iteration = iteration + 1;
 			// make the k+1 HasMap of items after eliminating on the basis of support.
 			makeBruteNewFrequentList(dynamicMapping, iteration);
-			
+
+		}
+		System.out.println("--------------------------------------");
+		System.out.println("The final frequent itemlist are.");
+		for (ArrayList<String> arr : frequentItems.keySet()) {
+			System.out.println(arr + " , " + frequentItems.get(arr));
 		}
 
-		
+		makeBruteFinalList(iteration, confidence, support);
+		calculateBruteConfidence(dataBase, confidence, support);
 
-//		calculateBruteSupport(dataBase, dynamicMapping, iteration);
-//		stop = validateBruteSupport(dynamicMapping, support, iteration);
-//		System.out.println(stop);
-//		iteration = iteration + 1;
-//		makeBruteNewFrequentList(dynamicMapping, iteration);
-//
-//		calculateBruteSupport(dataBase, dynamicMapping, iteration);
-//		stop = validateBruteSupport(dynamicMapping, support, iteration);
-//		System.out.println(stop);
-//		iteration = iteration + 1;
-//		makeBruteNewFrequentList(dynamicMapping, iteration);
-//		
-//		calculateBruteSupport(dataBase, dynamicMapping, iteration);
-//		stop = validateBruteSupport(dynamicMapping, support, iteration);
-//		System.out.println(stop);
 	}
 
 	public static void calculateBruteSupport(HashMap<ArrayList<String>, Integer> dataBase,
@@ -146,11 +153,12 @@ public class BruteForceApriori {
 
 		}
 
-		System.out.println(dataBase);
+		// System.out.println(dataBase);
 		System.out.println("--------------------------------------------------------");
 		System.out.println("The support count of the elements after " + iteration + " iteration : " + "C" + iteration);
-		for (Map.Entry element : dynamicMapping.entrySet()) {
-			System.out.println(element.getKey() + "   " + element.getValue());
+		for (ArrayList<String> arr : dynamicMapping.keySet()) {
+			System.out.println(arr + "   " + dynamicMapping.get(arr));
+			frequentItems.put(arr, dynamicMapping.get(arr));
 		}
 
 	}
@@ -207,6 +215,115 @@ public class BruteForceApriori {
 		}
 		for (Map.Entry element : dynamicMapping.entrySet()) {
 			System.out.println(element.getKey() + "   " + element.getValue());
+		}
+
+	}
+
+	// In this method we will make the association from the frequent itemlist.
+	public static void makeBruteFinalList(int iteration, double confidence, double support) {
+		ArrayList<ArrayList<String>> array = new ArrayList<ArrayList<String>>();
+		ArrayList<Integer> itemCount = new ArrayList<Integer>();
+
+		// storing the elements and the count in the respective arraylist.
+		for (ArrayList<String> arr : frequentItems.keySet()) {
+			if ((frequentItems.get(arr) / (double) databaseSize) >= support) {
+				array.add(arr);
+				itemCount.add(frequentItems.get(arr));
+
+			}
+		}
+		System.out.println("----------------------------------------------");
+		System.out.println("The final validated list");
+		for (int i = 0; i < array.size(); i++) {
+			System.out.println(array.get(i) + " , " + itemCount.get(i));
+		}
+
+		StringBuilder str = new StringBuilder();
+		for (int i = 0; i < array.size(); i++) {
+			if (array.get(i).size() > 1) {
+				for (int j = 0; j < array.get(i).size(); j++) {
+					String[] staging = new String[2];
+					String[] staging1 = new String[2];
+					staging[0] = array.get(i).get(j);
+					staging1[1] = array.get(i).get(j);
+					// System.out.println(array.get(i).get(j));
+					for (int k = 0; k < array.get(i).size(); k++) {
+						if (k != j) {
+							str.append(array.get(i).get(k) + ",");
+						}
+					}
+					staging[1] = str.toString();
+					staging1[0] = str.toString();
+					// System.out.println(Arrays.toString(staging));//keep
+					finalMapping.put(staging, itemCount.get(i));
+
+					// Enter a bilateral relation only when elements are more than 2.
+					if (array.get(i).size() > 2) {
+						// System.out.println(Arrays.toString(staging1));//keep
+						finalMapping.put(staging1, itemCount.get(i));
+					}
+					str.delete(0, str.length());
+					// System.out.println("----------");//keep
+				}
+
+			}
+		}
+
+		System.out.println("--------------------------------------------------------");
+		System.out.println("The associations from the list of frequent items :");
+		for (Map.Entry element : finalMapping.entrySet()) {
+			String[] arrena = (String[]) element.getKey();
+			// System.out.println(Arrays.toString(arrena));
+			System.out.println(arrena[0] + "->" + arrena[1]);
+			System.out.println(" ");
+		}
+		System.out.println("--------------------------------------------------------");
+
+	}
+
+	public static void calculateBruteConfidence(HashMap<ArrayList<String>, Integer> dataBase, double confidence,
+			double support) {
+
+		int elementCount;
+		int finalCount;
+		int desiredCount;
+		HashMap<String[], Integer> confidenceCount = new HashMap<String[], Integer>();
+		System.out.println("The final list which pass the support and confidnce validation are.");
+		for (Map.Entry element : finalMapping.entrySet()) {
+			String[] arrena = (String[]) element.getKey();
+			// System.out.println(arrena[0]);
+			if (arrena[0].indexOf(",") != -1) {
+				elementCount = 0;
+				String[] parts = arrena[0].split(",");
+				desiredCount = 0;
+				finalCount = 0;
+				for (ArrayList<String> arr : dataBase.keySet()) {
+					for (int i = 0; i < parts.length; i++) {
+						if (arr.contains(parts[i])) {
+							finalCount = finalCount + 1;
+						}
+					}
+					// System.out.println("final "+finalCount);
+					if (finalCount == parts.length) {
+						elementCount = elementCount + 1;
+					}
+					finalCount = 0;
+				}
+
+			} else {
+				elementCount = 0;
+				for (ArrayList<String> arr : dataBase.keySet()) {
+					if (arr.contains(arrena[0])) {
+						elementCount = elementCount + 1;
+					}
+				}
+
+			}
+			if (((int) element.getValue() / (double) elementCount) >= confidence) {
+				System.out.println(arrena[0] + " --> " + arrena[1] + " || Support = "
+						+ (((int) element.getValue() / (double) databaseSize) * 100) + "%" + " || Confidence ="
+						+ (((int) element.getValue() / (double) elementCount) * 100) + "%");
+			}
 		}
 
 	}
