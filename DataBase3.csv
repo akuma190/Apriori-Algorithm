@@ -1,20 +1,20 @@
-1,Table,LED TV,book
-2,Bike Lubricant,Bike,Cable Lock
-3,Milk Chocolate,Coffee Maker
-4,Bike,Milk Chocolate,LED TV
-5,Table,book
-6,book,Caramel Cappuccino,Milk Chocolate
-7,Caramel Cappuccino,Coffee Maker,Milk Chocolate
-8,Bike Helmet,Caramel Cappuccino,Coffee Maker 
-9,Table,book
-10,Milk Chocolate,Caramel Cappuccino,Coffee Maker 
-11,Bike,Cable Lock,Bike Lubricant,LED TV 
-12,LED TV,Coffee Maker
-13,book,Caramel Cappuccino,Milk Chocolate
-14,LED TV,Bike
-15,Bike,Bike Lubricant
-16,book,Coffee Maker 
-17,Cable Lock,Coffee Maker,LED TV,Caramel Cappuccino
-18,Coffee Maker,book,Bike,Cable Lock,,Caramel Cappuccino
-19,book,Bike,Bike Helmet,Table
-20,book,Bike,Bike Helmet
+1,CoffeeMaker,AuntJackies,Irritable
+2,LEDTV,CountryFarms,Precise,CableLock,Yogourmet
+3,Table,Reliable,Leader,CableLock,Yogourmet
+4,BikeLubricant,Yogamat,Dermend
+5,CableLock,Yogourmet,Oracoat
+6,book,Honees,Heliocare,Bike,Amberen
+7,MilkChocolate,Aquage,Medicado
+8,CaramelCappuccino,Motions,Kinky
+9,BikeHelmet,AppleCider,Natural
+10,Bike,Amberen,Oster
+11,Irritable,CoffeeMaker,AuntJackies
+12,Precise,LEDTV,CountryFarms
+13,Leader,Table,Reliable
+14,Dermend,BikeLubricant,Yogamat
+15,Oracoat,CableLock,Yogourmet
+16,Heliocare,book,Honees,Bike,Amberen
+17,Medicado,MilkChocolate,Aquage
+18,Kinky,CaramelCappuccino,Motions
+19,Natural,BikeHelmet,AppleCider
+20,Oster,Bike,Amberen
