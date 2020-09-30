@@ -1,20 +1,20 @@
-AP03_48901 :Table,LED TV,book
-AP03_48902 :Bike Lubricant,Bike,Cable Lock
-AP03_48903 :Milk Chocolate,Coffee Maker
-AP03_48904 :Bike,Milk Chocolate,LED TV
-AP03_48905 :Table,book
-AP03_48906 :book,Caramel Cappuccino,Milk Chocolate
-AP03_48907 :Caramel Cappuccino,Coffee Maker,Milk Chocolate
-AP03_48908 :Bike Helmet,Caramel Cappuccino,Coffee Maker 
-AP03_48909 :Table,book
-AP03_48910 :Milk Chocolate,Caramel Cappuccino,Coffee Maker 
-AP03_48911 :Bike,Cable Lock,Bike Lubricant,LED TV 
-AP03_48912 :LED TV,Coffee Maker
-AP03_48913 :book,Caramel Cappuccino,Milk Chocolate
-AP03_48914 :LED TV,Bike
-AP03_48915 :Bike,Bike Lubricant
-AP03_48916 :book,Coffee Maker 
-AP03_48917 :Cable Lock,Coffee Maker,LED TV,Caramel Cappuccino
-AP03_48918 :Coffee Maker,book,Bike,Cable Lock,,Caramel Cappuccino
-AP03_48919 :book,Bike,Bike Helmet,Table
-AP03_48920 :book,Bike,Bike Helmet
+1,CoffeeMaker,AuntJackies,Irritable
+2,LEDTV,CountryFarms,Precise,CableLock,Yogourmet
+3,Table,Reliable,Leader,CableLock,Yogourmet
+4,BikeLubricant,Yogamat,Dermend
+5,CableLock,Yogourmet,Oracoat
+6,book,Honees,Heliocare,Bike,Amberen
+7,MilkChocolate,Aquage,Medicado
+8,CaramelCappuccino,Motions,Kinky
+9,BikeHelmet,AppleCider,Natural
+10,Bike,Amberen,Oster
+11,Irritable,CoffeeMaker,AuntJackies
+12,Precise,LEDTV,CountryFarms
+13,Leader,Table,Reliable
+14,Dermend,BikeLubricant,Yogamat
+15,Oracoat,CableLock,Yogourmet
+16,Heliocare,book,Honees,Bike,Amberen
+17,Medicado,MilkChocolate,Aquage
+18,Kinky,CaramelCappuccino,Motions
+19,Natural,BikeHelmet,AppleCider
+20,Oster,Bike,Amberen
