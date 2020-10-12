@@ -14,32 +14,36 @@ import java.util.Scanner;
 
 public class Apriori {
 
-	static String arrw[];
+	static String temp_arr[];
 	public static long start;
 	public static long end;
 
 	public static void main(String[] args) {
 		HashMap<HashSet<String>, Integer> Transaction = new HashMap<>();
-		HashMap<HashSet<String>, Integer> fis = new HashMap<>();
+		HashMap<HashSet<String>, Integer> storage = new HashMap<>();
 		HashSet<String> Item = new HashSet<>();
 		HashSet<String> ItemAfterStage1 = new HashSet<>();
-		HashSet<HashSet<String>> eleminatinSet = new HashSet<>();
+		HashSet<HashSet<String>> discardSet = new HashSet<>();
 		int support = 2;
 		int confidence = 2;
 		int totaltrans = 0;
 		BufferedReader br;
-		int noy = 1;
+		int check = 1;
 		start = System.currentTimeMillis();
-		File file = new File("D1.txt");
+		Scanner myObj = new Scanner(System.in);
+		System.out.println("-------------APRIORI ALGORITHM------------");
+		System.out.println("Please enter the file name:");
+		String input = myObj.nextLine();
+		File file = new File(input);
 		try {
 			// Enter Support and confidence
-//			Scanner myObj = new Scanner(System.in);
-//			System.out.println("Enter Support Value in percentage Eg:70 for 70%");
-//			support = myObj.nextInt();
-			support = 15;
-//			System.out.println("Enter Confidence Value in percentage Eg:70 for 70%");
-//			confidence = myObj.nextInt();
-			confidence = 75;
+			//Scanner myObj = new Scanner(System.in);
+			System.out.println("Enter Support Value in percentage");//Enter values between 0-100
+			support = myObj.nextInt();
+			//support = 20;
+			System.out.println("Enter Confidence Value in percentage");
+			confidence = myObj.nextInt();
+			//confidence = 40;
 			// myObj.close();
 			// END Enter Support and confidence
 			// Loading the data from database
@@ -48,17 +52,17 @@ public class Apriori {
 			String st;
 			while ((st = br.readLine()) != null) {
 				String strArray[] = st.split(",");
-				HashSet<String> setOfTrans = new HashSet<>(Arrays.asList(strArray));
-				if (Transaction.containsKey(setOfTrans)) {
-					Transaction.put(setOfTrans, Transaction.get(setOfTrans) + 1);
+				HashSet<String> transactionSet = new HashSet<>(Arrays.asList(strArray));
+				if (Transaction.containsKey(transactionSet)) {
+					Transaction.put(transactionSet, Transaction.get(transactionSet) + 1);
 				} else {
-					Transaction.put(setOfTrans, 1);
+					Transaction.put(transactionSet, 1);
 				}
 				totaltrans++;
-				Item.addAll(setOfTrans);
+				Item.addAll(transactionSet);
 			}
 			//System.out.println(Transaction);// HashMap containing all the lines of the file.
-			//System.out.println(Item);
+			System.out.println(Item);
 			support = (int) (((float) support / 100) * totaltrans);
 			// END Loading the data from database
 			// Calculating the support and confidence
@@ -73,39 +77,39 @@ public class Apriori {
 				}
 				if (val >= support) {
 					ItemAfterStage1.add(itemTemp);
-					HashSet<String> ts3 = new HashSet<>();
-					ts3.add(itemTemp);
-					fis.put(ts3, val);
+					HashSet<String> tempStorage = new HashSet<>();
+					tempStorage.add(itemTemp);
+					storage.put(tempStorage, val);
 				} else {
-					HashSet<String> ts3 = new HashSet<>();
-					ts3.add(itemTemp);
-					eleminatinSet.add(ts3);
+					HashSet<String> tempStorage = new HashSet<>();
+					tempStorage.add(itemTemp);
+					discardSet.add(tempStorage);
 				}
 			}
-			//System.out.println(fis);// the count after the first iteration
+			//System.out.println(storage);// the count after the first iteration
 			System.out.println("--------------------------------");
 			System.out.println("The individual items and their count");
-			for (HashSet<String> str : fis.keySet()) {
-				System.out.println(str + " = " + fis.get(str));
+			for (HashSet<String> str : storage.keySet()) {
+				System.out.println(str + " = " + storage.get(str));
 			}
 			System.out.println("--------------------------------");
-			arrw = ItemAfterStage1.toArray(new String[0]);
-			//System.out.println("= " + Arrays.toString(arrw));
+			temp_arr = ItemAfterStage1.toArray(new String[0]);
+			//System.out.println("= " + Arrays.toString(temp_arr));
 			int exit = 0;
 			while (exit == 0) {
 				exit = 1;
-				setIteration();
+				setIterationValue();
 				obj = new HashSet<>();
-				combinationGenerator(new String[iteration], 0, 0);
+				combination(new String[iteration], 0, 0);
 				System.out.println("-------------------------------");
-				System.out.println("Item list after the iteration : " + getIteration());
+				System.out.println("Item list after the iteration : " + getIterationValue());
 				for (HashSet<String> comb : obj) {
 					System.out.println(comb);
 				}
 				System.out.println("-------------------------------");
 				for (HashSet<String> comb : obj) {
 					int k = 0;
-					for (HashSet<String> elim : eleminatinSet) {
+					for (HashSet<String> elim : discardSet) {
 						if (comb.containsAll(elim)) {
 							k = 1;
 							break;
@@ -119,73 +123,92 @@ public class Apriori {
 							}
 						}
 						if (val >= support) {
-							fis.put(comb, val);
+							storage.put(comb, val);
 							exit = 0;
 						} else {
-							eleminatinSet.add(comb);
+							discardSet.add(comb);
 						}
 					}
 				}
-				System.out.println("The individual items and their count after the iteration :" + getIteration());
-				for (HashSet<String> str : fis.keySet()) {
-					System.out.println(str + " = " + fis.get(str));
+				System.out.println("The individual items and their count after the iteration :" + getIterationValue());
+				for (HashSet<String> str : storage.keySet()) {
+					System.out.println(str + " = " + storage.get(str));
 				}
 				System.out.println("--------------------------------");
 			}
 			System.out.println("The final frequent item list is :");
-			for (HashSet<String> frr : fis.keySet()) {
-				System.out.println(frr + "-->" + fis.get(frr));
+			for (HashSet<String> frr : storage.keySet()) {
+				System.out.println(frr + "-->" + storage.get(frr));
 			}
 			System.out.println("-------------------------------------------------");
 			System.out.println("The items satisfying the association rules are :");
-			for (Map.Entry<HashSet<String>, Integer> entry : fis.entrySet()) {
+			for (Map.Entry<HashSet<String>, Integer> entry : storage.entrySet()) {
 				atest = new String[entry.getKey().size()];
 				entry.getKey().toArray(atest);
-				ax = atest;
+				smt = atest;
 				for (int u = 1; u < atest.length; u++) {
 					candidateRule(new String[u], 0, 0, u);
 				}
-				HashSet<String> tempx = new HashSet<>();
-				tempx.addAll(entry.getKey());
+				HashSet<String> temp = new HashSet<>();
+				temp.addAll(entry.getKey());
 				for (HashSet<String> ls : orr) {
-					tempx.removeAll(ls);
+					temp.removeAll(ls);
 					NumberFormat formatter = new DecimalFormat("#0.00");
 					Integer t2 = entry.getValue();
 					Integer t3 = 0;
-					if (fis.containsKey(ls)) {
-						t3 = fis.get(ls);
+					if (storage.containsKey(ls)) {
+						t3 = storage.get(ls);
 					} else {
 						System.out.println("error");
 					}
 					float conf = ((float) t2 / t3) * 100;
 					float supp = ((float) t2 / totaltrans) * 100;
 					if (conf >= confidence) {
-						noy = 0;
+						check = 0;
 						System.out.println(ls.toString().replace("[", "").replace("]", "") + "-->"
-								+ tempx.toString().replace("[", "").replace("]", "") + ":[" + formatter.format(supp)
+								+ temp.toString().replace("[", "").replace("]", "") + ":[" + formatter.format(supp)
 								+ "%," + formatter.format(conf) + "%]");
 					}
-					tempx.addAll(entry.getKey());
+					temp.addAll(entry.getKey());
 				}
 				orr = new HashSet<HashSet<String>>();
 			}
-			// END Calculating the support and confidence
-			if (noy == 1) {
+			if (check == 1) {
 				System.out.println("Nothing to display with the given confidece and support");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		end = System.currentTimeMillis();
-		System.out.println("Total time to run the program is : "+(end -start));
+		System.out.println("Total time to run the program is: "+(end -start) +"msec");
 	}
 
-	static String[] ax = {};
+	static String[] smt = {};
 	static HashSet<HashSet<String>> obj = new HashSet<>();
 	static int iteration = 1;
 	static String[] atest;
 	static HashSet<HashSet<String>> orr = new HashSet<HashSet<String>>();
 
+	public static int getIterationValue() {
+		return iteration;
+	}
+
+	public static void setIterationValue() {
+		Apriori.iteration += 1;
+	}
+	public static void combination(String data[], int start, int index) {
+		if (index == iteration) {
+			HashSet<String> temp = new HashSet<>();
+			for (int j = 0; j < iteration; j++)
+				temp.add(data[j]);
+			obj.add(temp);
+			return;
+		}
+		for (int i = start; i <= temp_arr.length - 1 && temp_arr.length - i >= iteration - index; i++) {
+			data[index] = temp_arr[i];
+			combination(data, i + 1, index + 1);
+		}
+	}
 	public static void candidateRule(String data[], int start, int index, int iterator) {
 		if (index == iterator) {
 			HashSet<String> temp = new HashSet<>();
@@ -194,31 +217,11 @@ public class Apriori {
 			orr.add(temp);
 			return;
 		}
-		for (int i = start; i <= ax.length - 1 && ax.length - i >= iterator - index; i++) {
-			data[index] = ax[i];
+		for (int i = start; i <= smt.length - 1 && smt.length - i >= iterator - index; i++) {
+			data[index] = smt[i];
 			candidateRule(data, i + 1, index + 1, iterator);
 		}
 	}
 
-	public static void combinationGenerator(String data[], int start, int index) {
-		if (index == iteration) {
-			HashSet<String> temp = new HashSet<>();
-			for (int j = 0; j < iteration; j++)
-				temp.add(data[j]);
-			obj.add(temp);
-			return;
-		}
-		for (int i = start; i <= arrw.length - 1 && arrw.length - i >= iteration - index; i++) {
-			data[index] = arrw[i];
-			combinationGenerator(data, i + 1, index + 1);
-		}
-	}
-
-	public static int getIteration() {
-		return iteration;
-	}
-
-	public static void setIteration() {
-		Apriori.iteration += 1;
-	}
+	
 }
